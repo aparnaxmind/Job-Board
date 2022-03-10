@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.text.DateFormat;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -14,9 +15,16 @@ import static javax.persistence.GenerationType.AUTO;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Role {
+public class Applicant {
     @Id
     @GeneratedValue(strategy = AUTO)
-    private Long role_id;
-    private String role_name;
+
+    private Long applicant_id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String gender;
+    private String skills;
+    private DateFormat dob;
+    private Long user_id;
 }
