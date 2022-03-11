@@ -1,15 +1,23 @@
 package com.example.Job.Board.app.service;
 
+import com.example.Job.Board.app.domain.Applicant;
 import com.example.Job.Board.app.domain.Employer;
+import com.example.Job.Board.app.repo.ApplicantRepository;
 import com.example.Job.Board.app.repo.EmployerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class EmployerService {
     private final EmployerRepository employerRepository;
+    private Object status;
+
     @Autowired
     public EmployerService(EmployerRepository employerRepository) {
         this.employerRepository = employerRepository;
@@ -27,4 +35,13 @@ public class EmployerService {
         }
         employerRepository.deleteById(employer_id);
     }
-}
+
+    @Transactional
+    public void hireApplicant(Long applicant_id){
+        Applicant applicant = ApplicantRepository.findByapplicant_id(applicant_id);
+        if(applicant==null)
+            throw new IllegalMonitorStateException("applicant with id " + applicant_id +"does not exists");
+        status = "selected";
+        }
+    }
+

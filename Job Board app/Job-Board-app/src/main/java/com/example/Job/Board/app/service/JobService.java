@@ -1,8 +1,7 @@
 package com.example.Job.Board.app.service;
 
-import com.example.Job.Board.app.domain.Applicant;
-import com.example.Job.Board.app.domain.Employer;
 import com.example.Job.Board.app.domain.Jobs;
+import com.example.Job.Board.app.dtos.JobDTO;
 import com.example.Job.Board.app.repo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +17,7 @@ import java.util.List;
 public class JobService {
 
 
-    private JobsRepository jobsRepository;
-
-
-
+    private static JobsRepository jobsRepository;
 
     public Jobs createJobs(Jobs jobs) {
         log.info("saving new jobs {} to the database",jobs.getJob_id());
@@ -30,18 +26,18 @@ public class JobService {
     }
 
 
-    public Jobs searchJob(Long job_id) {
+    public static Jobs searchJob(Long job_id) {
         log.info("fetching Jobs {}",job_id);
-        return jobsRepository.findByjob_id(job_id);
+        return JobsRepository.findByjob_id(job_id);
     }
 
 
-    public List<Jobs> getJobs() {
+    public static List<Jobs> getJobs(JobDTO jobDTO) {
         log.info("fetching Jobs ");
         return jobsRepository.findAll();
     }
 
-    public void deleteJob(Long job_id){
+    public static void deleteJob(Long job_id){
         boolean exists= jobsRepository.existsById(job_id);
             if(! exists){throw new IllegalStateException("jobs with id " + job_id +"does not exists");
             }
