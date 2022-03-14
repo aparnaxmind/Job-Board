@@ -26,10 +26,10 @@ public class JobService {
     }
 
 
-    public static Jobs searchJob(Long job_id) {
-        log.info("fetching Jobs {}",job_id);
-        return JobsRepository.findByjob_id(job_id);
-    }
+//    public static Jobs searchJob(Long job_id) {
+//        log.info("fetching Jobs {}",job_id);
+//        return JobsRepository.findByjob_id(job_id);
+//    }
 
 
     public static List<Jobs> getJobs(JobDTO jobDTO) {
@@ -45,8 +45,7 @@ public class JobService {
         }
 
 
+//    public Jobs findByjob_id(Long job_id) {
+//        return Jobs;
+    }
 
-
-
-
-}

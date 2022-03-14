@@ -29,22 +29,22 @@ public class ApplicantService {
         //employer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return applicantRepository.save(applicant);
     }
+//
+//    public void apply(Long job_id){
+//        Jobs jobs= JobsRepository. findByjob_id(job_id);
+//        if(jobs==null)
+//            throw new IllegalMonitorStateException("job with id " + job_id +"does not exists");
+//        status = "apply";
+//    }
+//
+//    public Applicant getApplicant(Long job_id) {
+//        log.info("fetching all applicant of job_id {}",job_id);
+//        return ApplicantRepository.findByjob_id(job_id);
+//    }
 
-    public void apply(Long job_id){
-        Jobs jobs= JobsRepository. findByjob_id(job_id);
-        if(jobs==null)
-            throw new IllegalMonitorStateException("job with id " + job_id +"does not exists");
-        status = "apply";
-    }
-
-    public Applicant getApplicant(Long job_id) {
-        log.info("fetching all applicant of job_id {}",job_id);
-        return ApplicantRepository.findByjob_id(job_id);
-    }
-
-    public static Jobs searchJobWithSkill(Long skill_id) {
-        log.info("fetching Jobs with skill_id {}",skill_id);
-        return JobsRepository.findByskill_id(skill_id);
-    }
+//    public static Jobs searchJobWithSkill(Long skill_id) {
+//        log.info("fetching Jobs with skill_id {}",skill_id);
+//        return JobsRepository.findByskill_id(skill_id);
+//    }
 
 }

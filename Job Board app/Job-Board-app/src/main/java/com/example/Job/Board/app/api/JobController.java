@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class JobController {
     @Autowired
     private JobsRepository jobsRepository;
+    private JobService jobService;
 
     @PostMapping
     public void getJobs(@RequestBody JobDTO jobDTO){
@@ -21,17 +22,17 @@ public class JobController {
     public void createJobs(@RequestBody JobDTO jobDTO) {
         JobService.getJobs(jobDTO);
     }
-    @DeleteMapping(path = "{job_id}")
-    public void deleteJob(@PathVariable("job_id")Long job_id){
-        JobService.deleteJob(job_id);
-    }
-    public Jobs searchJob(Long job_id) {
-        return JobsRepository.findByjob_id(job_id);
-    }
-    @GetMapping("/jobs/{id}")
-    public Jobs searchJob(@PathVariable long job_id) {
-        Jobs jobDTO;
-        jobDTO=JobService.searchJob(job_id);
-        return jobDTO;
-    }
+//    @DeleteMapping(path = "{job_id}")
+//    public void deleteJob(@PathVariable("job_id")Long job_id){
+//        JobService.deleteJob(job_id);
+//    }
+//    public Jobs searchJob(Long job_id) {
+//        return jobService.findByjob_id(job_id);
+//    }
+//    @GetMapping("/jobs/{id}")
+//    public Jobs searchJob(@PathVariable long job_id) {
+//        Jobs jobDTO;
+//        jobDTO=JobService.searchJob(job_id);
+//        return jobDTO;
+//    }
 }

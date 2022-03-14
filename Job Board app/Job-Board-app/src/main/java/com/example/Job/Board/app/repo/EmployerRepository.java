@@ -10,9 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface EmployerRepository extends JpaRepository<Employer,Long> {
-    Employer findByemployer_id(Long employer_id);
 
-    Jobs findByjob_id(Long employer_id);
+    Optional<Employer> findByEmployer_id(Long employer_id);
+    Optional<Jobs> findByjob_id(Long employer_id);
+
 
 
 }
