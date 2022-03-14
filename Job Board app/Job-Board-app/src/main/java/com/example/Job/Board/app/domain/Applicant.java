@@ -27,4 +27,11 @@ public class Applicant {
     private String skills;
     private DateFormat dob;
     private Long user_id;
+
+
+    @Override
+    public String toString() {
+        return "Applicant [applicant_id = " + applicant_id + ", firstName = " +firstName + ", lastName = " + lastName + ", email = " + email
+                + ", gender = " + gender + ", dob = " +dob+ ",user_id = " +user_id +  "]";
+    }
 }

@@ -1,9 +1,9 @@
 package com.example.Job.Board.app.api;
 
 import com.example.Job.Board.app.domain.Applicant;
-import com.example.Job.Board.app.dtos.ApplicantDTO;
 import com.example.Job.Board.app.service.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +14,11 @@ public class ApplicantController {
     @Autowired
     public ApplicantController(ApplicantService applicantService) {
         this.applicantService = applicantService;
+    }
+
+    @GetMapping("/Applicant")
+    public ResponseEntity<Applicant> getApplicant(Long job_id) {
+        return ResponseEntity.ok().body(applicantService.getApplicant(job_id));
     }
 
     @PostMapping

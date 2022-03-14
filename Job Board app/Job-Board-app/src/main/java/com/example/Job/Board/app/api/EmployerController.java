@@ -1,8 +1,11 @@
 package com.example.Job.Board.app.api;
 
+import com.example.Job.Board.app.domain.Applicant;
 import com.example.Job.Board.app.domain.Employer;
+import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.service.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +16,13 @@ public class EmployerController {
     public EmployerController(EmployerService employerService) {
         this.employerService = employerService;
     }
+
+    @GetMapping("/employerjobs")
+    public ResponseEntity<Jobs> getJobPostEmployer(Long employer_id) {
+
+        return ResponseEntity.ok().body(employerService.getJobPostEmployer(employer_id));
+    }
+
     @PostMapping
     public void registerEmployer(@RequestBody Employer employer){
         employerService.registerEmployer(employer);

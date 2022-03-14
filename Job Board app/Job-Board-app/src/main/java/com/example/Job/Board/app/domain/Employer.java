@@ -29,4 +29,11 @@ public class Employer {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "jobsDetails")
     private List<Jobs> jobsDetailsListList;
+
+
+    @Override
+    public String toString() {
+        return "Employer [employer_id = " + employer_id+ ", company_name= " +company_name + ", email = " + email + ", website = " + website
+                + ", mobile_no = " + mobile_no + ", user_id = " +user_id+ ",address = " +address +  "]";
+    }
 }

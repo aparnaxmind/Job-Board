@@ -2,15 +2,13 @@ package com.example.Job.Board.app.service;
 
 import com.example.Job.Board.app.domain.Applicant;
 import com.example.Job.Board.app.domain.Employer;
+import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.repo.ApplicantRepository;
 import com.example.Job.Board.app.repo.EmployerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -34,6 +32,11 @@ public class EmployerService {
         if(! exists){throw new IllegalStateException("employer with id " + employer_id +"does not exists");
         }
         employerRepository.deleteById(employer_id);
+    }
+
+    public Jobs getJobPostEmployer(Long employer_id) {
+        log.info("fetching all jobs posted by employer_id {}",employer_id);
+        return employerRepository.findByjob_id(employer_id);
     }
 
     @Transactional

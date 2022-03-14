@@ -37,4 +37,14 @@ public class ApplicantService {
         status = "apply";
     }
 
+    public Applicant getApplicant(Long job_id) {
+        log.info("fetching all applicant of job_id {}",job_id);
+        return ApplicantRepository.findByjob_id(job_id);
+    }
+
+    public static Jobs searchJobWithSkill(Long skill_id) {
+        log.info("fetching Jobs with skill_id {}",skill_id);
+        return JobsRepository.findByskill_id(skill_id);
+    }
+
 }

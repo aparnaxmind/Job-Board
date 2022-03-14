@@ -40,4 +40,9 @@ public class Jobs {
    private Set<Skills> skills;
 
 
+   @Override
+   public String toString() {
+      return "Jobs [job_id = " + job_id + ", jobTitle = " +jobTitle + ", employer_id = " + employer_id + ", description = " + description
+              + ", required_Skills = " + required_Skills + ", skill_id = " + skill_id+ ",jobStatus = " +jobStatus +  "]";
+   }
 }
