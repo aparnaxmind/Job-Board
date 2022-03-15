@@ -7,6 +7,9 @@ import com.example.Job.Board.app.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path="api/v1/jobs")
 public class JobController {
@@ -14,25 +17,33 @@ public class JobController {
     private JobsRepository jobsRepository;
     private JobService jobService;
 
-    @PostMapping
-    public void getJobs(@RequestBody JobDTO jobDTO){
-        JobService.getJobs(jobDTO);
+    @GetMapping
+    public List<JobDTO> getJobs(){
+        List<JobDTO> jobList=jobService.getJobs();
+        if(jobList.isEmpty())
+            throw new IllegalMonitorStateException("Job list is empty");
+        return jobList;
+    }
+
+    @GetMapping("/job/{id}")
+    public Optional<Jobs> getJobs(@PathVariable long id) {
+        Optional<Jobs> jobDTO;
+        jobDTO=jobService.getJobs(id);
+        return jobDTO;
     }
     @PostMapping
-    public void createJobs(@RequestBody JobDTO jobDTO) {
-        JobService.getJobs(jobDTO);
+    public void addNewJobs(@RequestBody JobDTO jobDTO){
+        jobService.addNewJobs(jobDTO);
     }
-//    @DeleteMapping(path = "{job_id}")
-//    public void deleteJob(@PathVariable("job_id")Long job_id){
-//        JobService.deleteJob(job_id);
-//    }
-//    public Jobs searchJob(Long job_id) {
-//        return jobService.findByjob_id(job_id);
-//    }
-//    @GetMapping("/jobs/{id}")
-//    public Jobs searchJob(@PathVariable long job_id) {
-//        Jobs jobDTO;
-//        jobDTO=JobService.searchJob(job_id);
-//        return jobDTO;
-//    }
+    @DeleteMapping(path = "{job_id}")
+    public void deleteJobs(@PathVariable("job_id")Long job_id){
+        jobService.deleteJobs(job_id);
+    }
+    @GetMapping("/jobs/{id}")
+    public Optional<Jobs> searchJob(@PathVariable long job_id) {
+        Optional<Jobs> jobDTO;
+        jobDTO=JobService.searchJob(job_id);
+        return jobDTO;
+    }
+
 }

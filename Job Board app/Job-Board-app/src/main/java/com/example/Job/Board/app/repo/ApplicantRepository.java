@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ApplicantRepository extends JpaRepository<Applicant,Long> {
 
-    Optional<Applicant> findByapplicant_id(Long applicant_id);
-    Optional<Applicant> findByjob_id(Long job_id);
+    Optional<Applicant> findByApplicant_id(Long applicant_id);
 
+    Optional<Applicant> findApplicantByEmail(String email);
 }

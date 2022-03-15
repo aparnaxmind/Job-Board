@@ -13,6 +13,7 @@ public interface EmployerRepository extends JpaRepository<Employer,Long> {
 
     Optional<Employer> findByEmployer_id(Long employer_id);
     Optional<Jobs> findByjob_id(Long employer_id);
+    Optional<Applicant> findByApplicant_id(Long applicant_id);
 
 
 

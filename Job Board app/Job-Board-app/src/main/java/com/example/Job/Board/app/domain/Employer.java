@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -27,8 +28,8 @@ public class Employer {
     private String mobile_no;
     private Long user_id;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "jobsDetails")
-    private List<Jobs> jobsDetailsListList;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employer")
+    private Set<Jobs> jobs;
 
 
     @Override

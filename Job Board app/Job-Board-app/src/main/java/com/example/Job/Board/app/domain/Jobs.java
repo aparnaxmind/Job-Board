@@ -19,18 +19,22 @@ public class Jobs {
 
    private Long job_id;
    private String jobTitle;
-   private Long employer_id;
+
    private String description;
    private String required_Skills;
    private String jobStatus;
    private String skill_id;
 
+//   @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//   @JoinColumn(name ="employer_id",referencedColumnName = "employer_id")
+//   private Employer employerDetails;
+
    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
    @JoinColumn(name ="employer_id",referencedColumnName = "employer_id")
-   private Employer employerDetails;
+   private Employer employer;
 
    @ManyToMany
-   @JoinTable(name = "skills",
+   @JoinTable(name = "job_skills ",
            joinColumns = {
                    @JoinColumn(name = "job_id", referencedColumnName = "job_id",
                            nullable = false, updatable = false)},
@@ -42,7 +46,7 @@ public class Jobs {
 
    @Override
    public String toString() {
-      return "Jobs [job_id = " + job_id + ", jobTitle = " +jobTitle + ", employer_id = " + employer_id + ", description = " + description
+      return "Jobs [job_id = " + job_id + ", jobTitle = " +jobTitle +   ", description = " + description
               + ", required_Skills = " + required_Skills + ", skill_id = " + skill_id+ ",jobStatus = " +jobStatus +  "]";
    }
 }

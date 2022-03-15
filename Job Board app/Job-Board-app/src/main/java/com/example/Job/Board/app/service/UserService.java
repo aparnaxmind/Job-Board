@@ -22,11 +22,6 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Users saveUser(Users users) {
-        log.info("saving user {} to the database",users.getUsername());
-        //employer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return userRepository.save(users);
-    }
 
     public List<UserDTO> getUser() {
 

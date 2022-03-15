@@ -4,47 +4,89 @@ import com.example.Job.Board.app.domain.Applicant;
 import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.dtos.ApplicantDTO;
 import com.example.Job.Board.app.repo.ApplicantRepository;
-import com.example.Job.Board.app.repo.JobsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static com.example.Job.Board.app.service.JobService.jobsRepository;
 
 @Service
 @Slf4j
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
-    private String status;
+    private String status="not apply";
 
     @Autowired
     public ApplicantService(ApplicantRepository applicantRepository) {
         this.applicantRepository = applicantRepository;
     }
 
-    public Applicant registerApplicant(Applicant applicant) {
-        log.info("saving new applicant {} to the database",applicant.getApplicant_id());
-        //employer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return applicantRepository.save(applicant);
+    public List<ApplicantDTO> getApplicant(){
+        List<Applicant> listOfApplicant=applicantRepository.findAll();
+        List<ApplicantDTO> applicantDTOS=new ArrayList<>();
+        listOfApplicant.forEach(detail->{
+            ApplicantDTO applicant =new ApplicantDTO();
+            applicant.setApplicant_id(detail.getApplicant_id());
+            applicant.setFirstName(detail.getFirstName());
+            applicant.setLastName(detail.getLastName());
+            applicant.setEmail(detail.getEmail());
+            applicant.setGender(detail.getGender());
+            applicant.setDob(detail.getDob());
+            applicant.setSkills(detail.getSkills());
+            applicant.setUser_id(detail.getUser_id());
+            applicantDTOS.add(applicant);
+        });
+        return applicantDTOS;
+
     }
-//
-//    public void apply(Long job_id){
-//        Jobs jobs= JobsRepository. findByjob_id(job_id);
-//        if(jobs==null)
-//            throw new IllegalMonitorStateException("job with id " + job_id +"does not exists");
-//        status = "apply";
-//    }
-//
-//    public Applicant getApplicant(Long job_id) {
-//        log.info("fetching all applicant of job_id {}",job_id);
-//        return ApplicantRepository.findByjob_id(job_id);
-//    }
 
-//    public static Jobs searchJobWithSkill(Long skill_id) {
-//        log.info("fetching Jobs with skill_id {}",skill_id);
-//        return JobsRepository.findByskill_id(skill_id);
-//    }
+    public Optional<Applicant> addNewApplicant(ApplicantDTO detail) {
+        Applicant applicant =new Applicant();
+        applicant.setApplicant_id(detail.getApplicant_id());
+        applicant.setFirstName(detail.getFirstName());
+        applicant.setLastName(detail.getLastName());
+        applicant.setEmail(detail.getEmail());
+        applicant.setGender(detail.getGender());
+        applicant.setDob(detail.getDob());
+        applicant.setSkills(detail.getSkills());
+        applicant.setUser_id(detail.getUser_id());
 
+        Optional<Applicant> applicantOptional= applicantRepository.findApplicantByEmail(applicant.getEmail());
+        if (applicantOptional.isPresent()){
+            throw new IllegalMonitorStateException("email taken");
+        }
+        applicantRepository.save(applicant);
+        return applicantOptional;
+    }
+
+    public Optional<Applicant> getApplicant(Long id){
+        return applicantRepository.findByApplicant_id(id);
+    }
+    public void deleteApplicant(Long applicant_id) {
+        boolean exists= applicantRepository.existsById(applicant_id);
+        if(! exists){throw new IllegalStateException("Applicant with id " + applicant_id +"does not exists");
+        }
+        applicantRepository.deleteById(applicant_id);
+    }
+
+
+    public String apply(Long job_id){
+        boolean exists= applicantRepository.existsById(job_id);
+        if(! exists){throw new IllegalStateException("job with id " + job_id+"does not exists");
+        }
+        status = "apply";
+        return status;
+    }
+
+    public Optional<Jobs> getApplicantByJobId(Long job_id) {
+        return jobsRepository.findByJob_id(job_id);
+    }
+
+    public  Optional<Jobs> searchJobWithSkill(Long skill_id) {
+        return jobsRepository.findBySkill_id(skill_id);
+    }
 }

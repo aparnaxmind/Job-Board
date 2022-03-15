@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,35 +19,57 @@ import java.util.List;
 public class JobService {
 
 
-    private static JobsRepository jobsRepository;
+    public static JobsRepository jobsRepository;
 
-    public Jobs createJobs(Jobs jobs) {
-        log.info("saving new jobs {} to the database",jobs.getJob_id());
-        //employer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return jobsRepository.save(jobs);
+    public List<JobDTO> getJobs(){
+
+        List<Jobs> listOfJobs=jobsRepository.findAll();
+        List<JobDTO> JobsDTOS=new ArrayList<>();
+        listOfJobs.forEach(detail->{
+            JobDTO job =new JobDTO();
+            job.setJob_id(detail.getJob_id());
+            job.setJobTitle(detail.getJobTitle());
+
+            job.setDescription(detail.getDescription());
+            job.setRequired_Skills(detail.getRequired_Skills());
+            job.setJobStatus(detail.getJobStatus());
+            job.setSkill_id(detail.getSkill_id());
+            JobsDTOS.add(job);
+        });
+        return JobsDTOS;
+
     }
 
+    public Optional<Jobs> addNewJobs(JobDTO detail) {
+        Jobs job =new Jobs();
+        job.setJob_id(detail.getJob_id());
+        job.setJobTitle(detail.getJobTitle());
 
-//    public static Jobs searchJob(Long job_id) {
-//        log.info("fetching Jobs {}",job_id);
-//        return JobsRepository.findByjob_id(job_id);
-//    }
+        job.setDescription(detail.getDescription());
+        job.setRequired_Skills(detail.getRequired_Skills());
+        job.setJobStatus(detail.getJobStatus());
+        job.setSkill_id(detail.getSkill_id());
 
-
-    public static List<Jobs> getJobs(JobDTO jobDTO) {
-        log.info("fetching Jobs ");
-        return jobsRepository.findAll();
-    }
-
-    public static void deleteJob(Long job_id){
-        boolean exists= jobsRepository.existsById(job_id);
-            if(! exists){throw new IllegalStateException("jobs with id " + job_id +"does not exists");
-            }
-            jobsRepository.deleteById(job_id);
+        Optional<Jobs> jobsOptional= jobsRepository.findByJob_id(detail.getJob_id());
+        if (jobsOptional.isPresent()){
+            throw new IllegalMonitorStateException("job is already exist");
         }
-
-
-//    public Jobs findByjob_id(Long job_id) {
-//        return Jobs;
+        jobsRepository.save(job);
+        return jobsOptional;
     }
+    public Optional<Jobs> getJobs(Long id){
+        return jobsRepository.findById(id);
+    }
+    public void deleteJobs(Long job_id) {
+        boolean exists= jobsRepository.existsById(job_id);
+        if(! exists){throw new IllegalStateException("Jobs with id " + job_id +"does not exists");
+        }
+        jobsRepository.deleteById(job_id);
+    }
+
+    public static Optional<Jobs> searchJob(Long job_id) {
+        return jobsRepository.findByJob_id(job_id);
+    }
+    }
+
 

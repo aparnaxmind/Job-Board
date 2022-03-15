@@ -6,7 +6,7 @@ import lombok.Data;
 public class JobDTO {
     private Long job_id;
     private String jobTitle;
-    private Long employer_id;
+
     private String description;
     private String required_Skills;
     private String jobStatus;
