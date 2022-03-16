@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.text.DateFormat;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -28,6 +27,9 @@ public class Applicant {
     private DateFormat dob;
     private Long user_id;
 
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "JobApplicant")
+    private Set<JobApplicant> jobApplicants;
 
     @Override
     public String toString() {

@@ -44,6 +44,8 @@ public class Jobs {
    private Set<Skills> skills;
 
 
+
+
    @Override
    public String toString() {
       return "Jobs [job_id = " + job_id + ", jobTitle = " +jobTitle +   ", description = " + description

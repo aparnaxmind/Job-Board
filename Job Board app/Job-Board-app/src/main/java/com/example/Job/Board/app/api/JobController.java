@@ -42,7 +42,7 @@ public class JobController {
     @GetMapping("/jobs/{id}")
     public Optional<Jobs> searchJob(@PathVariable long job_id) {
         Optional<Jobs> jobDTO;
-        jobDTO=JobService.searchJob(job_id);
+        jobDTO=jobService.searchJob(job_id);
         return jobDTO;
     }
 

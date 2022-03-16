@@ -19,7 +19,7 @@ import java.util.Optional;
 public class JobService {
 
 
-    public static JobsRepository jobsRepository;
+    public  JobsRepository jobsRepository;
 
     public List<JobDTO> getJobs(){
 
@@ -67,7 +67,7 @@ public class JobService {
         jobsRepository.deleteById(job_id);
     }
 
-    public static Optional<Jobs> searchJob(Long job_id) {
+    public Optional<Jobs> searchJob(Long job_id) {
         return jobsRepository.findByJob_id(job_id);
     }
     }

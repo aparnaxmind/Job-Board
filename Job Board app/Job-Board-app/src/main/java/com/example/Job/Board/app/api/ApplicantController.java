@@ -5,6 +5,7 @@ import com.example.Job.Board.app.domain.Employer;
 import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.dtos.ApplicantDTO;
 import com.example.Job.Board.app.dtos.EmployerDTO;
+import com.example.Job.Board.app.dtos.JobApplicantDTO;
 import com.example.Job.Board.app.service.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class ApplicantController {
     }
     @PostMapping
     public void apply(@PathVariable("job_id")Long job_id){
-        applicantService.apply(job_id);
+        applicantService.apply(new JobApplicantDTO());
     }
     @PostMapping
     public void getApplicantByJobId(@PathVariable("job_id")Long job_id){

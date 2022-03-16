@@ -1,9 +1,13 @@
 package com.example.Job.Board.app.service;
 
 import com.example.Job.Board.app.domain.Applicant;
+import com.example.Job.Board.app.domain.JobApplicant;
 import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.dtos.ApplicantDTO;
+import com.example.Job.Board.app.dtos.JobApplicantDTO;
 import com.example.Job.Board.app.repo.ApplicantRepository;
+import com.example.Job.Board.app.repo.JobApplicantRepository;
+import com.example.Job.Board.app.repo.JobsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,17 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.Job.Board.app.service.JobService.jobsRepository;
+
 
 @Service
 @Slf4j
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
-    private String status="not apply";
-
+    private final JobsRepository jobsRepository;
+    private final JobApplicantRepository jobApplicantRepository;
     @Autowired
-    public ApplicantService(ApplicantRepository applicantRepository) {
+    public ApplicantService(ApplicantRepository applicantRepository, JobsRepository jobsRepository, JobApplicantRepository jobApplicantRepository) {
         this.applicantRepository = applicantRepository;
+        this.jobsRepository = jobsRepository;
+        this.jobApplicantRepository = jobApplicantRepository;
     }
 
     public List<ApplicantDTO> getApplicant(){
@@ -73,15 +79,16 @@ public class ApplicantService {
         applicantRepository.deleteById(applicant_id);
     }
 
+    public JobApplicantRepository apply(JobApplicantDTO detail) {
+        JobApplicant jobapplicant = new JobApplicant();
+        jobapplicant.setId(detail.getId());
+        jobapplicant.setApplicant_id(detail.getApplicant_id());
+        jobapplicant.setJob_id(detail.getJob_id());
+        jobapplicant.setStatus(detail.getStatus());
 
-    public String apply(Long job_id){
-        boolean exists= applicantRepository.existsById(job_id);
-        if(! exists){throw new IllegalStateException("job with id " + job_id+"does not exists");
-        }
-        status = "apply";
-        return status;
+        jobApplicantRepository.save(jobapplicant);
+        return jobApplicantRepository;
     }
-
     public Optional<Jobs> getApplicantByJobId(Long job_id) {
         return jobsRepository.findByJob_id(job_id);
     }

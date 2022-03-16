@@ -1,31 +1,32 @@
 package com.example.Job.Board.app.service;
 
-import com.example.Job.Board.app.domain.Applicant;
 import com.example.Job.Board.app.domain.Employer;
+import com.example.Job.Board.app.domain.JobApplicant;
 import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.dtos.EmployerDTO;
-import com.example.Job.Board.app.repo.ApplicantRepository;
+import com.example.Job.Board.app.dtos.JobApplicantDTO;
 import com.example.Job.Board.app.repo.EmployerRepository;
+import com.example.Job.Board.app.repo.JobApplicantRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.Job.Board.app.service.JobService.jobsRepository;
+
 
 @Service
 @Slf4j
 public class EmployerService {
     private final EmployerRepository employerRepository;
-    private Object status;
+    private final JobApplicantRepository jobApplicantRepository;
 
     @Autowired
-    public EmployerService(EmployerRepository employerRepository) {
+    public EmployerService(EmployerRepository employerRepository, JobApplicantRepository jobApplicantRepository) {
         this.employerRepository = employerRepository;
+        this.jobApplicantRepository = jobApplicantRepository;
     }
 
     public List<EmployerDTO> getEmployer(){
@@ -81,12 +82,15 @@ public class EmployerService {
         return employerRepository.findByjob_id(employer_id);
     }
 
-    public  Optional<Applicant>  hireApplicant(Long applicant_id) {
-        Optional<Applicant> applicant = employerRepository.findByApplicant_id(applicant_id);
-        if (applicant == null)
-            throw new IllegalMonitorStateException("applicant with id " + applicant_id + "does not exists");
-        status = "selected";
-        return (Optional<Applicant>) status;
+    public JobApplicantRepository hireApplicant(JobApplicantDTO detail) {
+        JobApplicant jobApplicant = new JobApplicant();
+        jobApplicant.setId(detail.getId());
+        jobApplicant.setJob_id(detail.getJob_id());
+        jobApplicant.setApplicant_id(detail.getApplicant_id());
+        jobApplicant.setStatus(detail.getStatus());
+        jobApplicantRepository.save(jobApplicant);
+        return jobApplicantRepository;
+
     }
 
 }

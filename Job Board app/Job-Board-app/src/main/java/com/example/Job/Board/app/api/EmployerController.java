@@ -3,6 +3,7 @@ package com.example.Job.Board.app.api;
 import com.example.Job.Board.app.domain.Employer;
 import com.example.Job.Board.app.domain.Jobs;
 import com.example.Job.Board.app.dtos.EmployerDTO;
+import com.example.Job.Board.app.dtos.JobApplicantDTO;
 import com.example.Job.Board.app.service.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +51,6 @@ public class EmployerController {
 
     @PostMapping
     public void hireApplicant(@PathVariable("applicant_id")Long applicant_id){
-        employerService.hireApplicant(applicant_id);
+        employerService.hireApplicant(new JobApplicantDTO());
     }
 }
