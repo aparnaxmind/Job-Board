@@ -18,22 +18,22 @@ public class Applicant {
     @Id
     @GeneratedValue(strategy = AUTO)
 
-    private Long applicant_id;
+    private Long applicantId;
     private String firstName;
     private String lastName;
     private String email;
     private String gender;
     private String skills;
     private DateFormat dob;
-    private Long user_id;
+    private Long userId;
 
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "JobApplicant")
-    private Set<JobApplicant> jobApplicants;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "applicant")
+    private Set<JobApplicant> jobApplicant;
 
     @Override
     public String toString() {
-        return "Applicant [applicant_id = " + applicant_id + ", firstName = " +firstName + ", lastName = " + lastName + ", email = " + email
-                + ", gender = " + gender + ", dob = " +dob+ ",user_id = " +user_id +  "]";
+        return "Applicant [applicantId = " + applicantId + ", firstName = " +firstName + ", lastName = " + lastName + ", email = " + email
+                + ", gender = " + gender + ", dob = " +dob+ ",userId = " +userId +  "]";
     }
 }

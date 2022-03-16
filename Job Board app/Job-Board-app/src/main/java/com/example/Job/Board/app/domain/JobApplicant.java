@@ -20,13 +20,16 @@ public class JobApplicant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private Long job_id;
-    private String applicant_id;
+
 
     @Enumerated(EnumType.ORDINAL)
     private JobApplicant.Status status;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name ="applicant_id",referencedColumnName = "applicant_id")
+    @JoinColumn(name ="applicantId",referencedColumnName = "applicantId")
     private  Applicant applicant;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name ="jobId",referencedColumnName = "jobId")
+    private  Jobs jobs;
 }

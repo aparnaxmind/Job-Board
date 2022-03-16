@@ -25,24 +25,24 @@ public class JobController {
         return jobList;
     }
 
-    @GetMapping("/job/{id}")
-    public Optional<Jobs> getJobs(@PathVariable long id) {
+    @GetMapping("/job/{Id}")
+    public Optional<Jobs> getJobs(@PathVariable long Id) {
         Optional<Jobs> jobDTO;
-        jobDTO=jobService.getJobs(id);
+        jobDTO=jobService.getJobs(Id);
         return jobDTO;
     }
     @PostMapping
     public void addNewJobs(@RequestBody JobDTO jobDTO){
         jobService.addNewJobs(jobDTO);
     }
-    @DeleteMapping(path = "{job_id}")
-    public void deleteJobs(@PathVariable("job_id")Long job_id){
-        jobService.deleteJobs(job_id);
+    @DeleteMapping(path = "{jobId}")
+    public void deleteJobs(@PathVariable("jobId")Long jobId){
+        jobService.deleteJobs(jobId);
     }
-    @GetMapping("/jobs/{id}")
-    public Optional<Jobs> searchJob(@PathVariable long job_id) {
+    @GetMapping("/jobs/{Id}")
+    public Optional<Jobs> searchJob(@PathVariable long jobId) {
         Optional<Jobs> jobDTO;
-        jobDTO=jobService.searchJob(job_id);
+        jobDTO=jobService.searchJob(jobId);
         return jobDTO;
     }
 

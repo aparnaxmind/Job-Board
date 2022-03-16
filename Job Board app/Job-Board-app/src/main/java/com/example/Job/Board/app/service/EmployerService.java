@@ -35,15 +35,15 @@ public class EmployerService {
         List<EmployerDTO> employerDTOS=new ArrayList<>();
         listOfEmployer.forEach(detail->{
             EmployerDTO employer =new EmployerDTO();
-            employer.setEmployer_id(detail.getEmployer_id());
-            employer.setCompany_name(detail.getCompany_name());
+            employer.setEmployerId(detail.getEmployerId());
+            employer.setCompanyName(detail.getCompanyName());
             employer.setEmail(detail.getEmail());
             employer.setAddress(detail.getAddress());
             employer.setCity(detail.getCity());
             employer.setState(detail.getState());
             employer.setWebsite(detail.getWebsite());
-            employer.setMobile_no(detail.getMobile_no());
-            employer.setUser_id(detail.getUser_id());
+            employer.setMobileNo(detail.getMobileNo());
+            employer.setUserId(detail.getUserId());
             employerDTOS.add(employer);
         });
         return employerDTOS;
@@ -52,41 +52,40 @@ public class EmployerService {
 
     public Optional<Employer> addNewEmployer(EmployerDTO detail) {
         Employer employer =new Employer();
-        employer.setEmployer_id(detail.getEmployer_id());
-        employer.setCompany_name(detail.getCompany_name());
+        employer.setEmployerId(detail.getEmployerId());
+        employer.setCompanyName(detail.getCompanyName());
         employer.setEmail(detail.getEmail());
         employer.setAddress(detail.getAddress());
         employer.setCity(detail.getCity());
         employer.setState(detail.getState());
         employer.setWebsite(detail.getWebsite());
-        employer.setMobile_no(detail.getMobile_no());
-        employer.setUser_id(detail.getUser_id());
-        Optional<Employer> employerOptional= employerRepository.findByEmployer_id(employer.getEmployer_id());
+        employer.setMobileNo(detail.getMobileNo());
+        employer.setUserId(detail.getUserId());
+        Optional<Employer> employerOptional= employerRepository.findById(employer.getEmployerId());
         if (employerOptional.isPresent()){
             throw new IllegalMonitorStateException("employer id is existing ");
         }
         employerRepository.save(employer);
         return employerOptional;
     }
-    public Optional<Employer> getEmployer(Long id){
-        return employerRepository.findById(id);
+    public Optional<Employer> getEmployer(Long Id){
+        return employerRepository.findById(Id);
     }
-    public void deleteEmployer(Long employer_id) {
-        boolean exists= employerRepository.existsById(employer_id);
-        if(! exists){throw new IllegalStateException("employer with id " + employer_id +"does not exists");
+    public void deleteEmployer(Long employerId) {
+        boolean exists= employerRepository.existsById(employerId);
+        if(! exists){throw new IllegalStateException("employer with id " + employerId +"does not exists");
         }
-        employerRepository.deleteById(employer_id);
+        employerRepository.deleteById(employerId);
     }
 
-    public Optional<Jobs> getJobPostEmployer(Long employer_id) {
-        return employerRepository.findByjob_id(employer_id);
+    public List<Jobs> getJobPostEmployer(Long employerId) {
+        return employerRepository.findByjobId(employerId);
     }
 
     public JobApplicantRepository hireApplicant(JobApplicantDTO detail) {
         JobApplicant jobApplicant = new JobApplicant();
         jobApplicant.setId(detail.getId());
-        jobApplicant.setJob_id(detail.getJob_id());
-        jobApplicant.setApplicant_id(detail.getApplicant_id());
+
         jobApplicant.setStatus(detail.getStatus());
         jobApplicantRepository.save(jobApplicant);
         return jobApplicantRepository;

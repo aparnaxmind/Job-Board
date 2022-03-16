@@ -36,14 +36,14 @@ public class ApplicantService {
         List<ApplicantDTO> applicantDTOS=new ArrayList<>();
         listOfApplicant.forEach(detail->{
             ApplicantDTO applicant =new ApplicantDTO();
-            applicant.setApplicant_id(detail.getApplicant_id());
+            applicant.setApplicantId(detail.getApplicantId());
             applicant.setFirstName(detail.getFirstName());
             applicant.setLastName(detail.getLastName());
             applicant.setEmail(detail.getEmail());
             applicant.setGender(detail.getGender());
             applicant.setDob(detail.getDob());
             applicant.setSkills(detail.getSkills());
-            applicant.setUser_id(detail.getUser_id());
+            applicant.setUserId(detail.getUserId());
             applicantDTOS.add(applicant);
         });
         return applicantDTOS;
@@ -52,14 +52,14 @@ public class ApplicantService {
 
     public Optional<Applicant> addNewApplicant(ApplicantDTO detail) {
         Applicant applicant =new Applicant();
-        applicant.setApplicant_id(detail.getApplicant_id());
+        applicant.setApplicantId(detail.getApplicantId());
         applicant.setFirstName(detail.getFirstName());
         applicant.setLastName(detail.getLastName());
         applicant.setEmail(detail.getEmail());
         applicant.setGender(detail.getGender());
         applicant.setDob(detail.getDob());
         applicant.setSkills(detail.getSkills());
-        applicant.setUser_id(detail.getUser_id());
+        applicant.setUserId(detail.getUserId());
 
         Optional<Applicant> applicantOptional= applicantRepository.findApplicantByEmail(applicant.getEmail());
         if (applicantOptional.isPresent()){
@@ -69,31 +69,30 @@ public class ApplicantService {
         return applicantOptional;
     }
 
-    public Optional<Applicant> getApplicant(Long id){
-        return applicantRepository.findByApplicant_id(id);
+    public Optional<Applicant> getApplicant(Long Id){
+        return applicantRepository.findById(Id);
     }
-    public void deleteApplicant(Long applicant_id) {
-        boolean exists= applicantRepository.existsById(applicant_id);
-        if(! exists){throw new IllegalStateException("Applicant with id " + applicant_id +"does not exists");
+    public void deleteApplicant(Long applicantId) {
+        boolean exists= applicantRepository.existsById(applicantId);
+        if(! exists){throw new IllegalStateException("Applicant with id " + applicantId +"does not exists");
         }
-        applicantRepository.deleteById(applicant_id);
+        applicantRepository.deleteById(applicantId);
     }
 
     public JobApplicantRepository apply(JobApplicantDTO detail) {
         JobApplicant jobapplicant = new JobApplicant();
         jobapplicant.setId(detail.getId());
-        jobapplicant.setApplicant_id(detail.getApplicant_id());
-        jobapplicant.setJob_id(detail.getJob_id());
+
         jobapplicant.setStatus(detail.getStatus());
 
         jobApplicantRepository.save(jobapplicant);
         return jobApplicantRepository;
     }
-    public Optional<Jobs> getApplicantByJobId(Long job_id) {
-        return jobsRepository.findByJob_id(job_id);
+    public Optional<Jobs> getApplicantByJobId(Long jobId) {
+        return jobsRepository.findById(jobId);
     }
 
-    public  Optional<Jobs> searchJobWithSkill(Long skill_id) {
-        return jobsRepository.findBySkill_id(skill_id);
+    public List<Jobs> searchJobWithSkill(Long skillId) {
+        return jobsRepository.findJobBySkill(skillId);
     }
 }

@@ -30,9 +30,9 @@ public class UsersController {
     public void addNewUser(@RequestBody UserDTO userDTO){
         userService.addNewUser(userDTO);
     }
-    @DeleteMapping(path = "{user_id}")
-    public void deleteUser(@PathVariable("user_id")Long user_id){
-        userService.deleteUser(user_id);
+    @DeleteMapping(path = "{userId}")
+    public void deleteUser(@PathVariable("userId")Long userId){
+        userService.deleteUser(userId);
     }
 
 

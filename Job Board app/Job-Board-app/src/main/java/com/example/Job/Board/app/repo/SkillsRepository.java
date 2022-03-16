@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface SkillsRepository extends JpaRepository<Skills,Long> {
 
-   Optional<Skills > findBySkill_id(Long skill_id);
+
 }

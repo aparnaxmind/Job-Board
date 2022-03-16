@@ -25,8 +25,8 @@ public class RoleService {
         List<RoleDTO> roleDTOS = new ArrayList<>();
         listOfRole.forEach(detail -> {
             RoleDTO rol = new RoleDTO();
-            rol.setRole_id(detail.getRole_id());
-            rol.setRole_name(detail.getRole_name());
+            rol.setRoleId(detail.getRoleId());
+            rol.setRoleName(detail.getRoleName());
             roleDTOS.add(rol);
         });
         return roleDTOS;
@@ -35,19 +35,19 @@ public class RoleService {
     public void addNewRole(RoleDTO roleDetails) {
 
         Role role = new Role();
-        role.setRole_id(roleDetails.getRole_id());
-        role.setRole_name(roleDetails.getRole_name());
+        role.setRoleId(roleDetails.getRoleId());
+        role.setRoleName(roleDetails.getRoleName());
 
         roleRepository.save(role);
 
     }
 
-    public void deleteRole(Long role_id) {
-        boolean exists = roleRepository.existsById(role_id);
+    public void deleteRole(Long roleId) {
+        boolean exists = roleRepository.existsById(roleId);
         if (!exists) {
-            throw new IllegalStateException("role with id " + role_id + "does not exists");
+            throw new IllegalStateException("role with id " + roleId + "does not exists");
         }
-        roleRepository.deleteById(role_id);
+        roleRepository.deleteById(roleId);
     }
 
 }

@@ -28,29 +28,29 @@ public class EmployerController {
     }
 
     @GetMapping("/employer/{id}")
-    public Optional<Employer> getEmployer(@PathVariable long id) {
+    public Optional<Employer> getEmployer(@PathVariable long Id) {
         Optional<Employer> employerDTO;
-        employerDTO=employerService.getEmployer(id);
+        employerDTO=employerService.getEmployer(Id);
         return employerDTO;
     }
     @PostMapping
     public void addNewEmployer(@RequestBody EmployerDTO employerDTO){
         employerService.addNewEmployer(employerDTO);
     }
-    @DeleteMapping(path = "{employer_id}")
-    public void deleteEmployer(@PathVariable("employer_id")Long employer_id){
-        employerService.deleteEmployer(employer_id);
+    @DeleteMapping(path = "{employerId}")
+    public void deleteEmployer(@PathVariable("employerId")Long employerId){
+        employerService.deleteEmployer(employerId);
     }
 
     @GetMapping("/employer/{id}")
-    public Optional<Jobs> getJobPostEmployer(@PathVariable long id) {
-        Optional<Jobs> employerDTO;
-        employerDTO=employerService.getJobPostEmployer(id);
+    public List<Jobs> getJobPostEmployer(@PathVariable long Id) {
+        List<Jobs> employerDTO;
+        employerDTO=employerService.getJobPostEmployer(Id);
         return employerDTO;
     }
 
     @PostMapping
-    public void hireApplicant(@PathVariable("applicant_id")Long applicant_id){
+    public void hireApplicant(@PathVariable("applicantId")Long applicantId){
         employerService.hireApplicant(new JobApplicantDTO());
     }
 }

@@ -30,9 +30,9 @@ public class RoleController {
     public void addNewRole(@RequestBody RoleDTO roleDTO){
         roleService.addNewRole(roleDTO);
     }
-    @DeleteMapping(path = "{role_id}")
-    public void deleteRole(@PathVariable("role_id")Long role_id){
-        roleService.deleteRole(role_id);
+    @DeleteMapping(path = "{roleId}")
+    public void deleteRole(@PathVariable("roleId")Long roleId){
+        roleService.deleteRole(roleId);
     }
 
 }

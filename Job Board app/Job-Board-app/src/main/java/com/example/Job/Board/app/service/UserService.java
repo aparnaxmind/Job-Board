@@ -9,17 +9,23 @@ import com.example.Job.Board.app.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
 
@@ -29,10 +35,10 @@ public class UserService {
         List<UserDTO>userDTOS = new ArrayList<>();
         listOfUser.forEach(detail -> {
             UserDTO user = new UserDTO();
-            user.setUser_id(detail.getUser_id());
+            user.setUserId(detail.getUserId());
             user.setUsername(detail.getUsername());
             user.setPassword(detail.getPassword());
-            user.setRole_id(detail.getRole_id());
+            user.setRoleId(detail.getRoleId());
             userDTOS.add(user);
         });
         return userDTOS;
@@ -41,19 +47,35 @@ public class UserService {
     public void addNewUser(UserDTO userDetails) {
 
         Users user = new Users();
-        user.setUser_id(userDetails.getUser_id());
+        user.setUserId(userDetails.getUserId());
         user.setUsername(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
-        user.setRole_id(userDetails.getRole_id());
+        user.setRoleId(userDetails.getRoleId());
         userRepository.save(user);
 
     }
 
-    public void deleteUser(Long user_id) {
-        boolean exists = userRepository.existsById(user_id);
+    public void deleteUser(Long userId) {
+        boolean exists = userRepository.existsById(userId);
         if (!exists) {
-            throw new IllegalStateException("user with id " + user_id + "does not exists");
+            throw new IllegalStateException("user with id " + userId + "does not exists");
         }
-        userRepository.deleteById(user_id);
+        userRepository.deleteById(userId);
     }
-}
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users users = userRepository.findByUsername(username);
+        if(users==null){
+            log.error("Customer not found in the database");
+        }
+        else{
+            log.info("Customer found in the database:{}",username);
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        users.getRoles().forEach(role -> { authorities.add(new SimpleGrantedAuthority(role.getRoleName()));});
+
+        return new User(users.getUsername(),users.getPassword(),authorities);
+    }
+    }
+

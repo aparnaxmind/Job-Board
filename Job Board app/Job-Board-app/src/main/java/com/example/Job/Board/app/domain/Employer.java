@@ -18,15 +18,15 @@ public class Employer {
     @Id
     @GeneratedValue(strategy = AUTO)
 
-    private Long employer_id;
-    private String company_name;
+    private Long employerId;
+    private String companyName;
     private String address;
     private String city;
     private String state;
     private String email;
     private String website;
-    private String mobile_no;
-    private Long user_id;
+    private String mobileNo;
+    private Long userId;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "employer")
     private Set<Jobs> jobs;
@@ -34,7 +34,7 @@ public class Employer {
 
     @Override
     public String toString() {
-        return "Employer [employer_id = " + employer_id+ ", company_name= " +company_name + ", email = " + email + ", website = " + website
-                + ", mobile_no = " + mobile_no + ", user_id = " +user_id+ ",address = " +address +  "]";
+        return "Employer [employerId = " + employerId+ ", companyName= " +companyName + ", email = " + email + ", website = " + website
+                + ", mobileNo = " + mobileNo + ", userId = " +userId+ ",address = " +address +  "]";
     }
 }

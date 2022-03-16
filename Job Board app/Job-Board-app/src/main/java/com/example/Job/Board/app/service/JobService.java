@@ -27,13 +27,13 @@ public class JobService {
         List<JobDTO> JobsDTOS=new ArrayList<>();
         listOfJobs.forEach(detail->{
             JobDTO job =new JobDTO();
-            job.setJob_id(detail.getJob_id());
+            job.setJobId(detail.getJobId());
             job.setJobTitle(detail.getJobTitle());
 
             job.setDescription(detail.getDescription());
-            job.setRequired_Skills(detail.getRequired_Skills());
+
             job.setJobStatus(detail.getJobStatus());
-            job.setSkill_id(detail.getSkill_id());
+
             JobsDTOS.add(job);
         });
         return JobsDTOS;
@@ -42,33 +42,32 @@ public class JobService {
 
     public Optional<Jobs> addNewJobs(JobDTO detail) {
         Jobs job =new Jobs();
-        job.setJob_id(detail.getJob_id());
+        job.setJobId(detail.getJobId());
         job.setJobTitle(detail.getJobTitle());
 
         job.setDescription(detail.getDescription());
-        job.setRequired_Skills(detail.getRequired_Skills());
-        job.setJobStatus(detail.getJobStatus());
-        job.setSkill_id(detail.getSkill_id());
 
-        Optional<Jobs> jobsOptional= jobsRepository.findByJob_id(detail.getJob_id());
+        job.setJobStatus(detail.getJobStatus());
+
+        Optional<Jobs> jobsOptional= jobsRepository.findById(detail.getJobId());
         if (jobsOptional.isPresent()){
             throw new IllegalMonitorStateException("job is already exist");
         }
         jobsRepository.save(job);
         return jobsOptional;
     }
-    public Optional<Jobs> getJobs(Long id){
-        return jobsRepository.findById(id);
+    public Optional<Jobs> getJobs(Long Id){
+        return jobsRepository.findById(Id);
     }
-    public void deleteJobs(Long job_id) {
-        boolean exists= jobsRepository.existsById(job_id);
-        if(! exists){throw new IllegalStateException("Jobs with id " + job_id +"does not exists");
+    public void deleteJobs(Long jobId) {
+        boolean exists= jobsRepository.existsById(jobId);
+        if(! exists){throw new IllegalStateException("Jobs with id " + jobId +"does not exists");
         }
-        jobsRepository.deleteById(job_id);
+        jobsRepository.deleteById(jobId);
     }
 
-    public Optional<Jobs> searchJob(Long job_id) {
-        return jobsRepository.findByJob_id(job_id);
+    public Optional<Jobs> searchJob(Long jobId) {
+        return jobsRepository.findById(jobId);
     }
     }
 

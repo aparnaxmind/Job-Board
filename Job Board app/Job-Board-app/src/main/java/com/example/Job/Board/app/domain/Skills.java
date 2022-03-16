@@ -22,8 +22,8 @@ public class Skills {
     @Id
     @GeneratedValue(strategy = AUTO)
 
-    private Long skill_id;
-    private String skill_name;
+    private Long skillId;
+    private String skillName;
 
     @ManyToMany(mappedBy = "skills")
     private Set<Jobs> jobsDetails ;

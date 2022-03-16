@@ -7,7 +7,12 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.AUTO;
 
 @Entity
@@ -18,8 +23,13 @@ public class Users {
     @Id
     @GeneratedValue(strategy = AUTO)
 
-    private Long user_id;
-    private String Username;
+    private Long userId;
+    private String username;
     private String password;
-    private Long role_id;
+    private Long roleId;
+
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles= new ArrayList<>();
+
+
 }

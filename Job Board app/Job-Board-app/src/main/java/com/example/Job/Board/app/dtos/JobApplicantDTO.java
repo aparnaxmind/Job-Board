@@ -9,8 +9,7 @@ import javax.persistence.Enumerated;
 public class JobApplicantDTO {
 
     private Long Id;
-    private Long job_id;
-    private String applicant_id;
+
 
     @Enumerated(EnumType.ORDINAL)
     private JobApplicant.Status status;

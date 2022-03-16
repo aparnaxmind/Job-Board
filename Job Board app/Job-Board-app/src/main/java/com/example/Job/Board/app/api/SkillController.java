@@ -29,9 +29,9 @@ public class SkillController {
     public void addNewSkills(@RequestBody SkillsDTO skillsDTO){
         skillsService.addNewSkills(skillsDTO);
     }
-    @DeleteMapping(path = "{skill_id}")
-    public void deleteSkills(@PathVariable("skill_id")Long skill_id){
-        skillsService.deleteSkills(skill_id);
+    @DeleteMapping(path = "{skillId}")
+    public void deleteSkills(@PathVariable("skillId")Long skillId){
+        skillsService.deleteSkills(skillId);
     }
 
 

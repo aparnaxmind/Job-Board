@@ -29,8 +29,8 @@ public class SkillsService {
         List<SkillsDTO> skillsDTOS = new ArrayList<>();
         listOfSkill.forEach(detail -> {
             SkillsDTO skl = new SkillsDTO();
-            skl.setSkill_id(detail.getSkill_id());
-            skl.setSkill_name(detail.getSkill_name());
+            skl.setSkillId(detail.getSkillId());
+            skl.setSkillName(detail.getSkillName());
             skillsDTOS.add(skl);
         });
         return skillsDTOS;
@@ -39,18 +39,18 @@ public class SkillsService {
     public void addNewSkills(SkillsDTO skillsDetails) {
 
         Skills skills = new Skills();
-        skills.setSkill_id(skillsDetails.getSkill_id());
-        skills.setSkill_name(skillsDetails.getSkill_name());
+        skills.setSkillId(skillsDetails.getSkillId());
+        skills.setSkillName(skillsDetails.getSkillName());
         skillsRepository.save(skills);
 
     }
 
-    public void deleteSkills(Long skill_id) {
-        boolean exists = skillsRepository.existsById(skill_id);
+    public void deleteSkills(Long skillId) {
+        boolean exists = skillsRepository.existsById(skillId);
         if (!exists) {
-            throw new IllegalStateException("skills with id " + skill_id + "does not exists");
+            throw new IllegalStateException("skills with id " + skillId + "does not exists");
         }
-        skillsRepository.deleteById(skill_id);
+        skillsRepository.deleteById(skillId);
     }
 
 }
