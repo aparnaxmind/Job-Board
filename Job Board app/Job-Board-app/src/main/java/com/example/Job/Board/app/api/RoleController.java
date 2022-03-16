@@ -19,14 +19,14 @@ public class RoleController {
     private RoleRepository roleRepository;
     private RoleService roleService;
 
-    @GetMapping
+    @GetMapping("/role")
     public List<RoleDTO> getRole(){
         List<RoleDTO> roleList=roleService.getRole();
         if(roleList.isEmpty())
             throw new IllegalMonitorStateException("Role list is empty");
         return roleList;
     }
-    @PostMapping
+    @PostMapping("/role/save")
     public void addNewRole(@RequestBody RoleDTO roleDTO){
         roleService.addNewRole(roleDTO);
     }

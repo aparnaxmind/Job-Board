@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -37,7 +39,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
 
-
+        http.authorizeRequests().antMatchers(GET, "/api/applicant/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/applicant/save/**").hasAnyAuthority("ROLE_EMPLOYER");
+        http.authorizeRequests().antMatchers(GET, "/api/employer/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/employer/save/**").hasAnyAuthority("ROLE_EMPLOYER");
+        http.authorizeRequests().antMatchers(GET, "/api/job/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/job/save/**").hasAnyAuthority("ROLE_EMPLOYER");
+        http.authorizeRequests().antMatchers(GET, "/api/role/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/role/save/**").hasAnyAuthority("ROLE_EMPLOYER");
+        http.authorizeRequests().antMatchers(GET, "/api/skills/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/skills/save/**").hasAnyAuthority("ROLE_EMPLOYER");
+        http.authorizeRequests().antMatchers(GET, "/api/users/**").hasAnyAuthority("ROLE_APPLICANT");
+        http.authorizeRequests().antMatchers(POST, "/api/users/save/**").hasAnyAuthority("ROLE_EMPLOYER");
 
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(authenticationFilter );

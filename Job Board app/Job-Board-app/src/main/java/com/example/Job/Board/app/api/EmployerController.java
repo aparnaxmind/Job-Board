@@ -19,7 +19,7 @@ public class EmployerController {
     public EmployerController(EmployerService employerService) {
         this.employerService = employerService;
     }
-    @GetMapping
+    @GetMapping("/employer")
     public List<EmployerDTO> getEmployer(){
         List<EmployerDTO> employerList=employerService.getEmployer();
         if(employerList.isEmpty())
@@ -33,7 +33,7 @@ public class EmployerController {
         employerDTO=employerService.getEmployer(Id);
         return employerDTO;
     }
-    @PostMapping
+    @PostMapping("/employer/save")
     public void addNewEmployer(@RequestBody EmployerDTO employerDTO){
         employerService.addNewEmployer(employerDTO);
     }

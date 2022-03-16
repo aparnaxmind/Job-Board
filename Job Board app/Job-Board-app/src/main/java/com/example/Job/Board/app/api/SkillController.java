@@ -18,14 +18,14 @@ public class SkillController {
     private SkillsRepository skillsRepository;
     private SkillsService skillsService;
 
-    @GetMapping
+    @GetMapping("/skills")
     public List<SkillsDTO> getSkill(){
         List<SkillsDTO> skillsList=skillsService.getSkill();
         if(skillsList.isEmpty())
             throw new IllegalMonitorStateException("skills list is empty");
         return skillsList;
     }
-    @PostMapping
+    @PostMapping("/skills/save")
     public void addNewSkills(@RequestBody SkillsDTO skillsDTO){
         skillsService.addNewSkills(skillsDTO);
     }

@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
             user.setUserId(detail.getUserId());
             user.setUsername(detail.getUsername());
             user.setPassword(detail.getPassword());
-            user.setRoleId(detail.getRoleId());
+
             userDTOS.add(user);
         });
         return userDTOS;
@@ -50,7 +50,7 @@ public class UserService implements UserDetailsService {
         user.setUserId(userDetails.getUserId());
         user.setUsername(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
-        user.setRoleId(userDetails.getRoleId());
+
         userRepository.save(user);
 
     }
@@ -73,7 +73,10 @@ public class UserService implements UserDetailsService {
             log.info("Customer found in the database:{}",username);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        users.getRoles().forEach(role -> { authorities.add(new SimpleGrantedAuthority(role.getRoleName()));});
+//        users.getRole().forEach(role -> { authorities.add(new SimpleGrantedAuthority(role.getRoleName()));});
+        authorities.add(new SimpleGrantedAuthority(users.getRole().getRoleName()));
+
+
 
         return new User(users.getUsername(),users.getPassword(),authorities);
     }

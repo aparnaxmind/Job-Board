@@ -17,7 +17,7 @@ public class JobController {
     private JobsRepository jobsRepository;
     private JobService jobService;
 
-    @GetMapping
+    @GetMapping("/job")
     public List<JobDTO> getJobs(){
         List<JobDTO> jobList=jobService.getJobs();
         if(jobList.isEmpty())
@@ -31,7 +31,7 @@ public class JobController {
         jobDTO=jobService.getJobs(Id);
         return jobDTO;
     }
-    @PostMapping
+    @PostMapping("/job/save")
     public void addNewJobs(@RequestBody JobDTO jobDTO){
         jobService.addNewJobs(jobDTO);
     }

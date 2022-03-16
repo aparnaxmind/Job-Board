@@ -23,7 +23,7 @@ public class ApplicantController {
     public ApplicantController(ApplicantService applicantService) {
         this.applicantService = applicantService;
     }
-    @GetMapping
+    @GetMapping("/applicant")
     public List<ApplicantDTO>  getApplicant(){
         List<ApplicantDTO> applicantList=applicantService. getApplicant();
         if(applicantList.isEmpty())
@@ -37,7 +37,7 @@ public class ApplicantController {
         applicantDTO=applicantService.getApplicant(id);
         return applicantDTO;
     }
-    @PostMapping
+    @PostMapping("/applicant/save")
     public void addNewApplicant(@RequestBody ApplicantDTO applicantDTO){
         applicantService.addNewApplicant(applicantDTO);
     }

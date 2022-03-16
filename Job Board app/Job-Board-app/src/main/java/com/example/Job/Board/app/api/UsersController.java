@@ -18,7 +18,7 @@ public class UsersController {
     private UserRepository userRepository;
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/users")
     public List<UserDTO> getUser(){
         List<UserDTO> userList=userService.getUser();
         if(userList.isEmpty())
@@ -26,7 +26,7 @@ public class UsersController {
         return userList;
     }
 
-    @PostMapping
+    @PostMapping("/users/save")
     public void addNewUser(@RequestBody UserDTO userDTO){
         userService.addNewUser(userDTO);
     }
