@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping(path="api/v1/applicant")
+
 public class ApplicantController {
     private final ApplicantService applicantService;
 
