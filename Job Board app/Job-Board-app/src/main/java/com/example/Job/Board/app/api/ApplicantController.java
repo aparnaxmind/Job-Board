@@ -48,15 +48,16 @@ public class ApplicantController {
     public void deleteApplicant(@PathVariable("applicant_id")Long applicant_id){
         applicantService.deleteApplicant(applicant_id);
     }
-    @PostMapping
-    public void apply(@PathVariable("job_id")Long job_id){
-        applicantService.apply(new JobApplicantDTO());
+    @PostMapping("/applicant/apply")
+    public void apply(@PathVariable("job_id")Long job_id, @RequestBody JobApplicantDTO jobapplicantDTO){
+        applicantService.apply( jobapplicantDTO);
     }
-    @PostMapping
+    @PostMapping("/applicant/job/{id}")
     public void getApplicantByJobId(@PathVariable("job_id")Long job_id){
         applicantService.getApplicantByJobId(job_id);
     }
-    @PostMapping
+
+    @PostMapping("/applicant/search")
     public void searchJobWithSkill(@PathVariable("skill_id")Long skill_id){
         applicantService.searchJobWithSkill(skill_id);
     }

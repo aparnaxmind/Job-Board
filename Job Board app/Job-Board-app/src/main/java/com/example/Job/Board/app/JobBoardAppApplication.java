@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.List;
 
 @SpringBootApplication
-@EnableSwagger2
+
 public class JobBoardAppApplication {
 
 	public static void main(String[] args) {

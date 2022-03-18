@@ -44,14 +44,14 @@ public class EmployerController {
         employerService.deleteEmployer(employerId);
     }
 
-    @GetMapping("/employer/{id}")
+    @GetMapping("/employer/job/{id}")
     public List<Jobs> getJobPostEmployer(@PathVariable long Id) {
         List<Jobs> employerDTO;
         employerDTO=employerService.getJobPostEmployer(Id);
         return employerDTO;
     }
 
-    @PostMapping
+    @PostMapping("/employer/hire")
     public void hireApplicant(@PathVariable("applicantId")Long applicantId){
         employerService.hireApplicant(new JobApplicantDTO());
     }
