@@ -29,25 +29,25 @@ public class JobBoardAppApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	SecurityContext securityContext() {
-		return SecurityContext.builder()
-				.securityReferences(defaultAuth())
-				.forPaths(PathSelectors.any())
-				.build();
-	}
+//	@Bean
+//	SecurityContext securityContext() {
+//		return SecurityContext.builder()
+//				.securityReferences(defaultAuth())
+//				.forPaths(PathSelectors.any())
+//				.build();
+//	}
+//
+//	List<SecurityReference> defaultAuth() {
+//		AuthorizationScope authorizationScope
+//				= new AuthorizationScope("global", "accessEverything");
+//		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//		authorizationScopes[0] = authorizationScope;
+//		return Lists.newArrayList(
+//				new SecurityReference("JWT", authorizationScopes));
+//	}
 
-	List<SecurityReference> defaultAuth() {
-		AuthorizationScope authorizationScope
-				= new AuthorizationScope("global", "accessEverything");
-		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-		authorizationScopes[0] = authorizationScope;
-		return Lists.newArrayList(
-				new SecurityReference("JWT", authorizationScopes));
-	}
-
-	private ApiKey apiKey() {
-		return new ApiKey("JWT", "Authorization", "header");
-	}
+//	private ApiKey apiKey() {
+//		return new ApiKey("JWT", "Authorization", "header");
+//	}
 
 }
